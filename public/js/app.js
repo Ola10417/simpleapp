@@ -1999,6 +1999,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 function Grocery(_ref) {
   var id = _ref.id,
       name = _ref.name,
@@ -2014,6 +2016,7 @@ function Grocery(_ref) {
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      edit: false,
       groceries: [],
       form: new Form({
         id: '',
@@ -2064,8 +2067,11 @@ function Grocery(_ref) {
                 _this2.form.post('/api/list').then(function () {
                   _this2.groceries = [];
 
-                  _this2.read(); //this.groceries.push(new Grocery(this.form));
+                  _this2.read();
 
+                  _this2.form.name = "";
+                  _this2.form.price = "";
+                  _this2.form.amount = ""; //this.groceries.push(new Grocery(this.form));
                 })["catch"](function () {});
 
               case 1:
@@ -2077,11 +2083,29 @@ function Grocery(_ref) {
       }))();
     },
     update: function update(id) {
+      var _this3 = this;
+
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var _yield$window$axios$g2, data;
+
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
+                _context3.next = 2;
+                return window.axios.get("/api/list/".concat(id));
+
+              case 2:
+                _yield$window$axios$g2 = _context3.sent;
+                data = _yield$window$axios$g2.data;
+                _this3.form.id = data[0].id;
+                _this3.form.name = data[0].name;
+                _this3.form.price = data[0].price;
+                _this3.form.amount = data[0].amount;
+                console.log(data);
+                _this3.edit = true;
+
+              case 10:
               case "end":
                 return _context3.stop();
             }
@@ -2089,31 +2113,64 @@ function Grocery(_ref) {
         }, _callee3);
       }))();
     },
-    del: function del(id) {
-      var _this3 = this;
+    editdata: function editdata() {
+      var _this4 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
-        var index;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                _context4.next = 2;
-                return window.axios["delete"]("/api/list/".concat(id));
+                _this4.form.put('/api/list/' + _this4.form.id).then(function () {
+                  //Vue.set(this.groceries, this.groceries.findIndex(grocery => grocery.id===this.form.id), {name:this.form.name, price:this.form.price, amount:this.form.amount })
+                  var g = _this4.groceries.find(function (grocery) {
+                    return grocery.id === _this4.form.id;
+                  });
 
-              case 2:
-                index = _this3.groceries.findIndex(function (grocery) {
-                  return grocery.id == id;
-                });
+                  g.name = _this4.form.name;
+                  g.price = _this4.form.price;
+                  g.amount = _this4.form.amount;
+                  _this4.form.id = "";
+                  _this4.form.name = "";
+                  _this4.form.price = "";
+                  _this4.form.amount = "";
+                  _this4.edit = false;
+                })["catch"](function () {}); //this.cruds.find(crud => crud.id === id).color = color;
 
-                _this3.groceries.splice(index, 1);
 
-              case 4:
+              case 1:
               case "end":
                 return _context4.stop();
             }
           }
         }, _callee4);
+      }))();
+    },
+    del: function del(id) {
+      var _this5 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+        var index;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                _context5.next = 2;
+                return window.axios["delete"]("/api/list/".concat(id));
+
+              case 2:
+                index = _this5.groceries.findIndex(function (grocery) {
+                  return grocery.id == id;
+                });
+
+                _this5.groceries.splice(index, 1);
+
+              case 4:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
       }))();
     }
   },
@@ -21604,7 +21661,7 @@ var render = function() {
         on: {
           submit: function($event) {
             $event.preventDefault()
-            return _vm.create()
+            _vm.edit ? _vm.editdata() : _vm.create()
           }
         }
       },
@@ -21614,11 +21671,37 @@ var render = function() {
             {
               name: "model",
               rawName: "v-model",
+              value: _vm.form.id,
+              expression: "form.id"
+            }
+          ],
+          attrs: { name: "id", hidden: "" },
+          domProps: { value: _vm.form.id },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.form, "id", $event.target.value)
+            }
+          }
+        }),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
               value: _vm.form.name,
               expression: "form.name"
             }
           ],
-          attrs: { type: "text", name: "name", placeholder: "Nazwa produktu" },
+          attrs: {
+            type: "text",
+            name: "name",
+            placeholder: "Nazwa produktu",
+            id: "namefield"
+          },
           domProps: { value: _vm.form.name },
           on: {
             input: function($event) {
@@ -21644,7 +21727,8 @@ var render = function() {
             name: "price",
             placeholder: "Cena",
             step: "0.1",
-            min: "0.1"
+            min: "0.1",
+            id: "pricefield"
           },
           domProps: { value: _vm.form.price },
           on: {
@@ -21670,7 +21754,8 @@ var render = function() {
             type: "number",
             name: "amount",
             placeholder: "Ilość",
-            min: "1"
+            min: "1",
+            id: "amountfield"
           },
           domProps: { value: _vm.form.amount },
           on: {
@@ -21683,7 +21768,37 @@ var render = function() {
           }
         }),
         _vm._v(" "),
-        _c("button", { attrs: { type: "submit" } }, [_vm._v("Dodaj")])
+        _c(
+          "button",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: !_vm.edit,
+                expression: "!edit"
+              }
+            ],
+            attrs: { type: "submit" }
+          },
+          [_vm._v("Dodaj")]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.edit,
+                expression: "edit"
+              }
+            ],
+            attrs: { type: "submit" }
+          },
+          [_vm._v("Edytuj")]
+        )
       ]
     ),
     _vm._v(" "),
@@ -35528,8 +35643,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _vue_app__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./vue/app */ "./resources/js/vue/app.vue");
 /* harmony import */ var vue_resource__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-resource */ "./node_modules/vue-resource/dist/vue-resource.esm.js");
-/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vform */ "./node_modules/vform/dist/vform.common.js");
-/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vform__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vform */ "./node_modules/vform/dist/vform.common.js");
+/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vform__WEBPACK_IMPORTED_MODULE_3__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
@@ -35537,7 +35652,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 
 
 
-window.Form = vform__WEBPACK_IMPORTED_MODULE_4__["Form"];
+window.Form = vform__WEBPACK_IMPORTED_MODULE_3__["Form"];
 var app = new Vue({
   el: '#app',
   components: {

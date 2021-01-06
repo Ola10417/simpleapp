@@ -48,7 +48,8 @@ class GroceryListController extends Controller
      */
     public function show($id)
     {
-        //
+        $grocery=Grocery::where('id',$id)->get();
+        return response($grocery->jsonSerialize(), Response::HTTP_OK);
     }
 
     /**
