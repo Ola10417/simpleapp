@@ -5,7 +5,8 @@
             <td>{{ name | uppCase }}</td>
             <td>{{ price }}</td>
             <td>{{ amount }}</td>
-            <td><button @click="del">Delete</button></td>
+            <td><button @click="del">Usuń</button></td>
+            <td><button @click="update">Edytuj</button></td>
         </tr>
     
 </template>
@@ -13,7 +14,11 @@
 export default {
     methods: {
         del(){
-            this.$emit('delte', this.id);
+            this.$emit('delete', this.id);
+        },
+        update(){
+            
+            this.$emit('update', this.id);
         }
     },
     props:['id', 'name', 'price', 'amount'],

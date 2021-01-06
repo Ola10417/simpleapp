@@ -22,13 +22,14 @@ class GroceryListController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function store(Request $request)
     {
         $grocery=new Grocery();
         $grocery->name=$request->input('name');
         $grocery->price=$request->input('price');
-        $grocery->price=$request->input('amount');
+        $grocery->amount=$request->input('amount');
         $grocery->save();
+        //dd($request);
         return response($grocery->jsonSerialize(), Response::HTTP_CREATED);
     }
 
@@ -38,11 +39,7 @@ class GroceryListController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store()
-    {
-        //
-    }
-
+    
     /**
      * Display the specified resource.
      *
