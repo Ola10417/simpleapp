@@ -8,6 +8,8 @@
             <button v-show="!edit" type="submit">Dodaj</button>
             <button v-show="edit" type="submit">Edytuj</button>
         </form>
+        
+        
         <table>
             <tr>
                 <th>Numer</th>
@@ -20,6 +22,9 @@
             <grocery-component v-for="grocery in groceries" v-bind="grocery" :key="grocery.id" @delete="del" @update="update">
             </grocery-component>
         </table>
+
+        <div> Do zaplaty: {{totalcost}} zł</div>
+       
     </div>
 </template>
 
@@ -42,14 +47,22 @@ export default {
                 name: '',
                 price: 0,
                 amount: 0
-              })
+              }),
+         totalcost:0
      }
  },
  methods:{
+      async countTotalCost(){
+         this.totalcost=0;
+         this.groceries.forEach(val => {
+            this.totalcost += Number(val.price)*Number(val.amount);
+        });
+
+     },
      async read(){
          const {data}=await window.axios.get('/api/list');
-         console.log(data[data.length-1].id);
          data.forEach(grocery=>this.groceries.push(new Grocery(grocery)));
+         this.countTotalCost();
          
      },
      async create(){
@@ -88,18 +101,18 @@ export default {
                 this.form.price="";
                 this.form.amount="";
                 this.edit=false;
-                
+                this.countTotalCost();
                 })
                 .catch(()=>{
 
                 })
     
-        //this.cruds.find(crud => crud.id === id).color = color;
      },
      async del(id){
         await window.axios.delete(`/api/list/${id}`);
          let index=this.groceries.findIndex(grocery=>grocery.id==id);
          this.groceries.splice(index,1);
+         this.countTotalCost();
      }
  },
  components: {

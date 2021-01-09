@@ -2001,6 +2001,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 function Grocery(_ref) {
   var id = _ref.id,
       name = _ref.name,
@@ -2023,32 +2028,26 @@ function Grocery(_ref) {
         name: '',
         price: 0,
         amount: 0
-      })
+      }),
+      totalcost: 0
     };
   },
   methods: {
-    read: function read() {
+    countTotalCost: function countTotalCost() {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var _yield$window$axios$g, data;
-
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
-                return window.axios.get('/api/list');
+                _this.totalcost = 0;
 
-              case 2:
-                _yield$window$axios$g = _context.sent;
-                data = _yield$window$axios$g.data;
-                console.log(data[data.length - 1].id);
-                data.forEach(function (grocery) {
-                  return _this.groceries.push(new Grocery(grocery));
+                _this.groceries.forEach(function (val) {
+                  _this.totalcost += Number(val.price) * Number(val.amount);
                 });
 
-              case 6:
+              case 2:
               case "end":
                 return _context.stop();
             }
@@ -2056,25 +2055,29 @@ function Grocery(_ref) {
         }, _callee);
       }))();
     },
-    create: function create() {
+    read: function read() {
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var _yield$window$axios$g, data;
+
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _this2.form.post('/api/list').then(function () {
-                  _this2.groceries = [];
+                _context2.next = 2;
+                return window.axios.get('/api/list');
 
-                  _this2.read();
+              case 2:
+                _yield$window$axios$g = _context2.sent;
+                data = _yield$window$axios$g.data;
+                data.forEach(function (grocery) {
+                  return _this2.groceries.push(new Grocery(grocery));
+                });
 
-                  _this2.form.name = "";
-                  _this2.form.price = "";
-                  _this2.form.amount = ""; //this.groceries.push(new Grocery(this.form));
-                })["catch"](function () {});
+                _this2.countTotalCost();
 
-              case 1:
+              case 6:
               case "end":
                 return _context2.stop();
             }
@@ -2082,30 +2085,25 @@ function Grocery(_ref) {
         }, _callee2);
       }))();
     },
-    update: function update(id) {
+    create: function create() {
       var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-        var _yield$window$axios$g2, data;
-
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                _context3.next = 2;
-                return window.axios.get("/api/list/".concat(id));
+                _this3.form.post('/api/list').then(function () {
+                  _this3.groceries = [];
 
-              case 2:
-                _yield$window$axios$g2 = _context3.sent;
-                data = _yield$window$axios$g2.data;
-                _this3.form.id = data[0].id;
-                _this3.form.name = data[0].name;
-                _this3.form.price = data[0].price;
-                _this3.form.amount = data[0].amount;
-                console.log(data);
-                _this3.edit = true;
+                  _this3.read();
 
-              case 10:
+                  _this3.form.name = "";
+                  _this3.form.price = "";
+                  _this3.form.amount = ""; //this.groceries.push(new Grocery(this.form));
+                })["catch"](function () {});
+
+              case 1:
               case "end":
                 return _context3.stop();
             }
@@ -2113,32 +2111,30 @@ function Grocery(_ref) {
         }, _callee3);
       }))();
     },
-    editdata: function editdata() {
+    update: function update(id) {
       var _this4 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        var _yield$window$axios$g2, data;
+
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                _this4.form.put('/api/list/' + _this4.form.id).then(function () {
-                  //Vue.set(this.groceries, this.groceries.findIndex(grocery => grocery.id===this.form.id), {name:this.form.name, price:this.form.price, amount:this.form.amount })
-                  var g = _this4.groceries.find(function (grocery) {
-                    return grocery.id === _this4.form.id;
-                  });
+                _context4.next = 2;
+                return window.axios.get("/api/list/".concat(id));
 
-                  g.name = _this4.form.name;
-                  g.price = _this4.form.price;
-                  g.amount = _this4.form.amount;
-                  _this4.form.id = "";
-                  _this4.form.name = "";
-                  _this4.form.price = "";
-                  _this4.form.amount = "";
-                  _this4.edit = false;
-                })["catch"](function () {}); //this.cruds.find(crud => crud.id === id).color = color;
+              case 2:
+                _yield$window$axios$g2 = _context4.sent;
+                data = _yield$window$axios$g2.data;
+                _this4.form.id = data[0].id;
+                _this4.form.name = data[0].name;
+                _this4.form.price = data[0].price;
+                _this4.form.amount = data[0].amount;
+                console.log(data);
+                _this4.edit = true;
 
-
-              case 1:
+              case 10:
               case "end":
                 return _context4.stop();
             }
@@ -2146,31 +2142,67 @@ function Grocery(_ref) {
         }, _callee4);
       }))();
     },
-    del: function del(id) {
+    editdata: function editdata() {
       var _this5 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
-        var index;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
-                _context5.next = 2;
-                return window.axios["delete"]("/api/list/".concat(id));
+                _this5.form.put('/api/list/' + _this5.form.id).then(function () {
+                  //Vue.set(this.groceries, this.groceries.findIndex(grocery => grocery.id===this.form.id), {name:this.form.name, price:this.form.price, amount:this.form.amount })
+                  var g = _this5.groceries.find(function (grocery) {
+                    return grocery.id === _this5.form.id;
+                  });
 
-              case 2:
-                index = _this5.groceries.findIndex(function (grocery) {
-                  return grocery.id == id;
-                });
+                  g.name = _this5.form.name;
+                  g.price = _this5.form.price;
+                  g.amount = _this5.form.amount;
+                  _this5.form.id = "";
+                  _this5.form.name = "";
+                  _this5.form.price = "";
+                  _this5.form.amount = "";
+                  _this5.edit = false;
 
-                _this5.groceries.splice(index, 1);
+                  _this5.countTotalCost();
+                })["catch"](function () {});
 
-              case 4:
+              case 1:
               case "end":
                 return _context5.stop();
             }
           }
         }, _callee5);
+      }))();
+    },
+    del: function del(id) {
+      var _this6 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
+        var index;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
+                _context6.next = 2;
+                return window.axios["delete"]("/api/list/".concat(id));
+
+              case 2:
+                index = _this6.groceries.findIndex(function (grocery) {
+                  return grocery.id == id;
+                });
+
+                _this6.groceries.splice(index, 1);
+
+                _this6.countTotalCost();
+
+              case 5:
+              case "end":
+                return _context6.stop();
+            }
+          }
+        }, _callee6);
       }))();
     }
   },
@@ -21820,7 +21852,9 @@ var render = function() {
         })
       ],
       2
-    )
+    ),
+    _vm._v(" "),
+    _c("div", [_vm._v(" Do zaplaty: " + _vm._s(_vm.totalcost) + " zł")])
   ])
 }
 var staticRenderFns = [
