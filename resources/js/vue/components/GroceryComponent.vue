@@ -1,12 +1,12 @@
 <template>
     
-        <tr>
+        <tr scope="row">
             <td>{{ id }}</td>
             <td>{{ name | uppCase }}</td>
             <td>{{ price }}</td>
             <td>{{ amount }}</td>
-            <td><button @click="del">Usuń</button></td>
-            <td><button @click="update">Edytuj</button></td>
+            <td><button @click="update" class="btn btn-warning">Edytuj</button></td>
+            <td><button @click="del" class="btn btn-danger">Usuń</button></td>
         </tr>
     
 </template>

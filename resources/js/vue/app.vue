@@ -1,29 +1,37 @@
 <template>
     <div id="app">
-        <form @submit.prevent="edit? editdata() : create()" ref="myForm" >
-            <input  v-model="form.id" name="id" hidden >
-            <input type="text" v-model="form.name" name="name" placeholder="Nazwa produktu" id="namefield">
-            <input type="number" v-model="form.price" name="price" placeholder="Cena" step="0.1" min="0.1" id="pricefield" >zł
-            <input type="number" v-model="form.amount" name="amount" placeholder="Ilość" min="1" id="amountfield" >
-            <button v-show="!edit" type="submit">Dodaj</button>
-            <button v-show="edit" type="submit">Edytuj</button>
-        </form>
+        <h1 class="pt-4">Lista Zakupów</h1>
+        <div class=" container ">
+            <form @submit.prevent="edit? editdata() : create()" ref="myForm" class="row py-4 mx-auto ">
+                <div class="input-group">
+                <input  v-model="form.id" name="id" hidden >
+                <input type="text" v-model="form.name" name="name" placeholder="Nazwa produktu" id="namefield" class="form-control col-sm col-lg-4 me-1  me-lg-2">
+                <input type="number" v-model="form.price" name="price" placeholder="Cena" step="0.1" min="0.1" id="pricefield" class="form-control col-sm me-1 col-lg-2 me-lg-2">
+                <input type="number" v-model="form.amount" name="amount" placeholder="Ilość" min="1" id="amountfield" class="form-control col-sm col-lg-2 me-1  me-lg-2">
+                <button v-show="!edit" type="submit" class="btn btn-success rounded col-sm col-lg-2  ">Dodaj</button>
+                <button v-show="edit" type="submit" class="btn btn-warning rounded col-sm col-lg-2 ">Edytuj</button>
+                </div>
+            </form>
+        </div>
         
-        
-        <table>
+        <table class="table table-striped table-hover">
+            <thead>
             <tr>
-                <th>Numer</th>
-                <th>Nazwa</th>
-                <th>Cena</th>
-                <th>Ilość</th>
-                <th>Usuń</th>
-                <th>Edytuj</th>
+                <th scope="col">Numer</th>
+                <th scope="col">Nazwa</th>
+                <th scope="col">Cena</th>
+                <th scope="col">Ilość</th>
+                <th scope="col">Edytuj</th>
+                <th scope="col">Usuń</th>
             </tr>
+            </thead>
+            <tbody>
             <grocery-component v-for="grocery in groceries" v-bind="grocery" :key="grocery.id" @delete="del" @update="update">
             </grocery-component>
+            </tbody>
         </table>
 
-        <div> Do zaplaty: {{totalcost}} zł</div>
+        <h4 class="text-end mt-2"> Do zaplaty: <b>{{totalcost}}  zł</b></h4>
        
     </div>
 </template>

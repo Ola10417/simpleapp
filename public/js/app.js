@@ -2006,6 +2006,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 function Grocery(_ref) {
   var id = _ref.id,
       name = _ref.name,
@@ -21686,159 +21694,171 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { attrs: { id: "app" } }, [
-    _c(
-      "form",
-      {
-        ref: "myForm",
-        on: {
-          submit: function($event) {
-            $event.preventDefault()
-            _vm.edit ? _vm.editdata() : _vm.create()
-          }
-        }
-      },
-      [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.form.id,
-              expression: "form.id"
-            }
-          ],
-          attrs: { name: "id", hidden: "" },
-          domProps: { value: _vm.form.id },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(_vm.form, "id", $event.target.value)
-            }
-          }
-        }),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.form.name,
-              expression: "form.name"
-            }
-          ],
-          attrs: {
-            type: "text",
-            name: "name",
-            placeholder: "Nazwa produktu",
-            id: "namefield"
-          },
-          domProps: { value: _vm.form.name },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(_vm.form, "name", $event.target.value)
-            }
-          }
-        }),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.form.price,
-              expression: "form.price"
-            }
-          ],
-          attrs: {
-            type: "number",
-            name: "price",
-            placeholder: "Cena",
-            step: "0.1",
-            min: "0.1",
-            id: "pricefield"
-          },
-          domProps: { value: _vm.form.price },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(_vm.form, "price", $event.target.value)
-            }
-          }
-        }),
-        _vm._v("zł\n        "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.form.amount,
-              expression: "form.amount"
-            }
-          ],
-          attrs: {
-            type: "number",
-            name: "amount",
-            placeholder: "Ilość",
-            min: "1",
-            id: "amountfield"
-          },
-          domProps: { value: _vm.form.amount },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(_vm.form, "amount", $event.target.value)
-            }
-          }
-        }),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: !_vm.edit,
-                expression: "!edit"
-              }
-            ],
-            attrs: { type: "submit" }
-          },
-          [_vm._v("Dodaj")]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: _vm.edit,
-                expression: "edit"
-              }
-            ],
-            attrs: { type: "submit" }
-          },
-          [_vm._v("Edytuj")]
-        )
-      ]
-    ),
+    _c("h1", { staticClass: "pt-4" }, [_vm._v("Lista Zakupów")]),
     _vm._v(" "),
-    _c(
-      "table",
-      [
-        _vm._m(0),
-        _vm._v(" "),
+    _c("div", { staticClass: " container " }, [
+      _c(
+        "form",
+        {
+          ref: "myForm",
+          staticClass: "row py-4 mx-auto ",
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              _vm.edit ? _vm.editdata() : _vm.create()
+            }
+          }
+        },
+        [
+          _c("div", { staticClass: "input-group" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.form.id,
+                  expression: "form.id"
+                }
+              ],
+              attrs: { name: "id", hidden: "" },
+              domProps: { value: _vm.form.id },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.form, "id", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.form.name,
+                  expression: "form.name"
+                }
+              ],
+              staticClass: "form-control col-sm col-lg-4 me-1  me-lg-2",
+              attrs: {
+                type: "text",
+                name: "name",
+                placeholder: "Nazwa produktu",
+                id: "namefield"
+              },
+              domProps: { value: _vm.form.name },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.form, "name", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.form.price,
+                  expression: "form.price"
+                }
+              ],
+              staticClass: "form-control col-sm me-1 col-lg-2 me-lg-2",
+              attrs: {
+                type: "number",
+                name: "price",
+                placeholder: "Cena",
+                step: "0.1",
+                min: "0.1",
+                id: "pricefield"
+              },
+              domProps: { value: _vm.form.price },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.form, "price", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.form.amount,
+                  expression: "form.amount"
+                }
+              ],
+              staticClass: "form-control col-sm col-lg-2 me-1  me-lg-2",
+              attrs: {
+                type: "number",
+                name: "amount",
+                placeholder: "Ilość",
+                min: "1",
+                id: "amountfield"
+              },
+              domProps: { value: _vm.form.amount },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.form, "amount", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: !_vm.edit,
+                    expression: "!edit"
+                  }
+                ],
+                staticClass: "btn btn-success rounded col-sm col-lg-2  ",
+                attrs: { type: "submit" }
+              },
+              [_vm._v("Dodaj")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.edit,
+                    expression: "edit"
+                  }
+                ],
+                staticClass: "btn btn-warning rounded col-sm col-lg-2 ",
+                attrs: { type: "submit" }
+              },
+              [_vm._v("Edytuj")]
+            )
+          ])
+        ]
+      )
+    ]),
+    _vm._v(" "),
+    _c("table", { staticClass: "table table-striped table-hover" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "tbody",
         _vm._l(_vm.groceries, function(grocery) {
           return _c(
             "grocery-component",
@@ -21849,12 +21869,15 @@ var render = function() {
               false
             )
           )
-        })
-      ],
-      2
-    ),
+        }),
+        1
+      )
+    ]),
     _vm._v(" "),
-    _c("div", [_vm._v(" Do zaplaty: " + _vm._s(_vm.totalcost) + " zł")])
+    _c("h4", { staticClass: "text-end mt-2" }, [
+      _vm._v(" Do zaplaty: "),
+      _c("b", [_vm._v(_vm._s(_vm.totalcost) + "  zł")])
+    ])
   ])
 }
 var staticRenderFns = [
@@ -21862,18 +21885,20 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("tr", [
-      _c("th", [_vm._v("Numer")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Nazwa")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Cena")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Ilość")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Usuń")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Edytuj")])
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Numer")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Nazwa")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Cena")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Ilość")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Edytuj")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Usuń")])
+      ])
     ])
   }
 ]
@@ -21898,7 +21923,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("tr", [
+  return _c("tr", { attrs: { scope: "row" } }, [
     _c("td", [_vm._v(_vm._s(_vm.id))]),
     _vm._v(" "),
     _c("td", [_vm._v(_vm._s(_vm._f("uppCase")(_vm.name)))]),
@@ -21907,9 +21932,19 @@ var render = function() {
     _vm._v(" "),
     _c("td", [_vm._v(_vm._s(_vm.amount))]),
     _vm._v(" "),
-    _c("td", [_c("button", { on: { click: _vm.del } }, [_vm._v("Usuń")])]),
+    _c("td", [
+      _c(
+        "button",
+        { staticClass: "btn btn-warning", on: { click: _vm.update } },
+        [_vm._v("Edytuj")]
+      )
+    ]),
     _vm._v(" "),
-    _c("td", [_c("button", { on: { click: _vm.update } }, [_vm._v("Edytuj")])])
+    _c("td", [
+      _c("button", { staticClass: "btn btn-danger", on: { click: _vm.del } }, [
+        _vm._v("Usuń")
+      ])
+    ])
   ])
 }
 var staticRenderFns = []
