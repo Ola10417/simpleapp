@@ -1,7 +1,6 @@
 <template>
     
         <tr scope="row">
-            <td>{{ id }}</td>
             <td>{{ name | uppCase }}</td>
             <td>{{ price }}</td>
             <td>{{ amount }}</td>

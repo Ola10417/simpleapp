@@ -24,6 +24,11 @@ class GroceryListController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request,[
+            'name'=>'required|string|max:191',
+            'price'=>'required|numeric',
+            'amount'=>'required|numeric|integer'
+        ]);
         $grocery=new Grocery();
         $grocery->name=$request->input('name');
         $grocery->price=$request->input('price');

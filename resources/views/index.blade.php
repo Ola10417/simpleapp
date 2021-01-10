@@ -5,7 +5,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <style>
             body, html {
-                height: 100%;
+                
+                min-height: 100%!important;
+            }
+            #app{
+                min-height: 100%;
+                min-height:970px!important;
             }
         </style>
         <title>Simple App</title>
@@ -14,7 +19,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     </head>
     <body style="background-image:url(/img/doodles.png);">
-        <div id="app" class="container-md bg-white px-5 shadow-sm text-center" style="height:100%">
+        <div id="app" class="container-md bg-white px-5 shadow-sm text-center h-100" >
         <app></app>
         </div>
         <script src="{{ mix('js/app.js')}}"></script>

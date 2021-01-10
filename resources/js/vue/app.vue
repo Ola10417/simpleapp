@@ -14,10 +14,11 @@
             </form>
         </div>
         
+        <h4 class="text-end mt-2"> Do zaplaty: <b>{{totalcost}}  zł</b></h4>
         <table class="table table-striped table-hover">
             <thead>
             <tr>
-                <th scope="col">Numer</th>
+                
                 <th scope="col">Nazwa</th>
                 <th scope="col">Cena</th>
                 <th scope="col">Ilość</th>
@@ -31,7 +32,6 @@
             </tbody>
         </table>
 
-        <h4 class="text-end mt-2"> Do zaplaty: <b>{{totalcost}}  zł</b></h4>
        
     </div>
 </template>
@@ -53,8 +53,8 @@ export default {
          form: new Form({
                 id:'',
                 name: '',
-                price: 0,
-                amount: 0
+                price: '',
+                amount: ''
               }),
          totalcost:0
      }
@@ -80,11 +80,19 @@ export default {
                 this.form.name="";
                 this.form.price="";
                 this.form.amount="";
-                
+                Swal.fire(
+                'Sukces!',
+                'Produkt został dodany do listy zakupów!',
+                'success'
+                )
                 //this.groceries.push(new Grocery(this.form));
                 })
                 .catch(()=>{
-
+                    Swal.fire({
+                    icon: 'error',
+                    title: 'Ups...',
+                    text: 'Coś poszło nie tak!',
+                    })
                 })
     },
      async update(id){
@@ -110,17 +118,38 @@ export default {
                 this.form.amount="";
                 this.edit=false;
                 this.countTotalCost();
+                Swal.fire(
+                'Sukces!',
+                'Produkt został zaktualizowany!',
+                'success'
+                )
                 })
                 .catch(()=>{
-
+                    Swal.fire({
+                    icon: 'error',
+                    title: 'Ups...',
+                    text: 'Coś poszło nie tak!',
+                    })
                 })
     
      },
      async del(id){
-        await window.axios.delete(`/api/list/${id}`);
-         let index=this.groceries.findIndex(grocery=>grocery.id==id);
-         this.groceries.splice(index,1);
-         this.countTotalCost();
+         Swal.fire({
+            title: 'Czy na pewno chce usunąć produkt z listy?',
+            showDenyButton: true,
+            
+            confirmButtonText: `Usuń`,
+            denyButtonText: `Anuluj`,
+            }).then((result) => {
+            if (result.isConfirmed) {
+                window.axios.delete(`/api/list/${id}`);
+                let index=this.groceries.findIndex(grocery=>grocery.id==id);
+                this.groceries.splice(index,1);
+                this.countTotalCost();
+                Swal.fire('Produkt został usunięty!', '', 'success')
+            } 
+        })
+        
      }
  },
  components: {
