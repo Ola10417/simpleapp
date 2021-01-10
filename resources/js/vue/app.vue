@@ -85,7 +85,6 @@ export default {
                 'Produkt został dodany do listy zakupów!',
                 'success'
                 )
-                //this.groceries.push(new Grocery(this.form));
                 })
                 .catch(()=>{
                     Swal.fire({
@@ -106,7 +105,6 @@ export default {
      },
      async editdata(){
         this.form.put('/api/list/'+this.form.id).then(()=>{
-                //Vue.set(this.groceries, this.groceries.findIndex(grocery => grocery.id===this.form.id), {name:this.form.name, price:this.form.price, amount:this.form.amount })
                 
                 let g=this.groceries.find(grocery => grocery.id===this.form.id);
                 g.name=this.form.name;

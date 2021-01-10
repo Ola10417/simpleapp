@@ -2109,7 +2109,7 @@ function Grocery(_ref) {
                   _this3.form.name = "";
                   _this3.form.price = "";
                   _this3.form.amount = "";
-                  Swal.fire('Sukces!', 'Produkt został dodany do listy zakupów!', 'success'); //this.groceries.push(new Grocery(this.form));
+                  Swal.fire('Sukces!', 'Produkt został dodany do listy zakupów!', 'success');
                 })["catch"](function () {
                   Swal.fire({
                     icon: 'error',
@@ -2166,7 +2166,6 @@ function Grocery(_ref) {
             switch (_context5.prev = _context5.next) {
               case 0:
                 _this5.form.put('/api/list/' + _this5.form.id).then(function () {
-                  //Vue.set(this.groceries, this.groceries.findIndex(grocery => grocery.id===this.form.id), {name:this.form.name, price:this.form.price, amount:this.form.amount })
                   var g = _this5.groceries.find(function (grocery) {
                     return grocery.id === _this5.form.id;
                   });
